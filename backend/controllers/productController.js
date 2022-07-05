@@ -12,7 +12,7 @@ exports.createProduct = asyncMiddleware(async (req, res, next) => {
     })
 })
 
-exports.getAllProducts = asyncMiddleware(async (req, res) => {
+exports.getAllProducts = asyncMiddleware(async (req, res, next) => {
     const itemPerPage = 5;
     const productCount = await productModel.countDocuments();
 
