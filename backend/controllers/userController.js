@@ -117,3 +117,103 @@ exports.resetPassword = asyncMiddleware(async (req, res, next) => {
 
     sendToken(user, 200, res);
 })
+
+// get user detail 
+exports.getUserDetails = asyncMiddleware(async (req, res, next) => {
+    const user = await userModel.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+exports.updatePassword = asyncMiddleware(async (req, res, next) => {
+    const user = await userModel.findById(req.user.id).select('+password');
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+    if(!isPasswordMatched) {
+        return next(new errorHandler("Old password is incorrect", 400));
+    }
+
+    if(req.body.newPassword !== req.body.confirmPassword) {
+        return next(new errorHandler("Password does not match", 400));
+    }
+
+    user.password = req.body.newPassword;
+
+    await user.save();
+
+    sendToken(user, 200, res);
+})
+
+exports.updateProfile = asyncMiddleware(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+    
+    const user = await userModel.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true
+    })
+})
+
+exports.getAllUsers = asyncMiddleware(async (req, res, next) => {
+    const users = await userModel.find();
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
+
+exports.getSingleUser = asyncMiddleware(async (req, res, next) => {
+    const user = await userModel.findById(req.params.id);
+
+    if(!user) {
+        return next(new errorHandler("User not found", 400));
+    }
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+exports.updateUserRole = asyncMiddleware(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+    
+    const user = await userModel.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true
+    })
+})
+
+exports.deleteUser = asyncMiddleware(async (req, res, next) => {
+    const user = await userModel.findById(req.params.id);
+
+    if(!user) {
+        return next(new errorHandler("User not found", 400));
+    }
+
+    await user.remove();
+
+    res.status(200).json({
+        success: true
+    })
+})
