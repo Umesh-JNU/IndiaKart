@@ -15,8 +15,9 @@ exports.createProduct = asyncMiddleware(async (req, res, next) => {
 })
 
 exports.getAllProducts = asyncMiddleware(async (req, res, next) => {
-    const itemPerPage = 5;
-    const productCount = await productModel.countDocuments();
+    // return next(new ErrorHandler("Temp error", 500));
+    const itemPerPage = 8;
+    const productsCount = await productModel.countDocuments();
 
     const apiFeature = new APIFeatures(productModel.find(), req.query)
         .search()
@@ -27,7 +28,7 @@ exports.getAllProducts = asyncMiddleware(async (req, res, next) => {
     res.status(200).json({
         success: true,
         products,
-        productCount
+        productsCount
     })
 })
 
