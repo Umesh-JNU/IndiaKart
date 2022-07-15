@@ -42,7 +42,7 @@ const ProductDetails = () => {
                 <div className='productDetails'>
                     <div>
                         <Carousel >
-                            {product.image && product.image.map((item, i) => (
+                            {product.images && product.images.map((item, i) => (
                                 <img
                                     className='carouselImage'
                                     key={item.url}
