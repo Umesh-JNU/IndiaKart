@@ -7,6 +7,7 @@ import ProductCard from '../home/ProductCard'
 import { useParams } from 'react-router-dom'
 import {Pagination, Slider, Typography} from '@mui/material'
 import {useAlert} from 'react-alert'
+import MetaData from '../layout/MetaData'
 
 const categories = [
     'laptop', 'footwear', 'bottom', 'tops', 'attire', 'camera', 'mobile', 'smartphones'];
@@ -45,6 +46,7 @@ const Products = () => {
     return (
         <>{loading ? <Loading /> : 
             <>
+                <MetaData title="IndiaKart | Products" />
                 <h2 className='productsHeading'>Products</h2>
                 <div className='products'>
                     {products && products.map((product) => (

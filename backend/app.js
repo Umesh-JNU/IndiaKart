@@ -1,7 +1,10 @@
 const express = require("express");
 const cors = require('cors');
-const errorMiddleware = require('./middleware/error');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload')
+
+const errorMiddleware = require('./middleware/error');
 
 const app = express()
 app.use(express.json())
@@ -10,6 +13,8 @@ app.use(cors({
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }))
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(fileUpload());
 
 app.get("/", (req, res) => {
     res.send("Root page");
