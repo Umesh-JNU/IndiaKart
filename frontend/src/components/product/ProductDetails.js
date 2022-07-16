@@ -8,6 +8,7 @@ import ReactStars from 'react-rating-stars-component'
 import ReviewCard from './ReviewCard.js'
 import Loading from '../layout/loader/Loading'
 import { useAlert } from 'react-alert'
+import MetaData from '../layout/MetaData'
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -39,6 +40,7 @@ const ProductDetails = () => {
     return (
         <> {loading ? <Loading /> :
             <>
+                <MetaData title={`${product.name} | IndiaKart`} />
                 <div className='productDetails'>
                     <div>
                         <Carousel >

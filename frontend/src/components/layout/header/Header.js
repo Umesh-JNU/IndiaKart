@@ -33,7 +33,7 @@ function Header () {
 					</Nav>
 					<Search />
 					<Nav>
-						<Nav.Link href="#deets"><CgProfile size={25} /></Nav.Link>
+						<Nav.Link href="/login"><CgProfile size={25} /></Nav.Link>
 						<Nav.Link href="#deets"><CgHeart size={25} /></Nav.Link>
 						<Nav.Link href="#deets"><CgShoppingCart size={25} /></Nav.Link>
 					</Nav>
