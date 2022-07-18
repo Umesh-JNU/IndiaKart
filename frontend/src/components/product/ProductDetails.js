@@ -93,7 +93,7 @@ const ProductDetails = () => {
                 <h3 className='reviewsHeading'>REVIEWS</h3>
                 {product.reviews && product.reviews[0] ? (
                     <div className='reviews'>
-                        {product.reviews.map((r) => <ReviewCard review={r} />)}
+                        {product.reviews.map((r, i) => <ReviewCard review={r} key={i} />)}
                     </div>
                 ) : (
                     <p className='noReviews'>No Reviews</p>
