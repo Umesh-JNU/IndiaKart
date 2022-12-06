@@ -24,8 +24,8 @@ cloudinary.config({
 });
 
 const port = process.env.PORT || 4000;
-const server = app.listen(prototype, () => {
-  console.log(`Server is running at http://localhost:${prototype}`);
+const server = app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
 });
 
 // unhandled promise rejection
