@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 
-if (process.env.NODE_ENV !== "PRODUCTION") {
+const env = process.env.NODE_ENV;
+if (env !== "PRODUCTION") {
   require("dotenv").config({ path: "backend/config/config.env" });
 }
 

@@ -17,6 +17,7 @@ import { CreditCard, Event, VpnKey } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { createOrder, clearErrors } from "../../actions/orderAction";
 import useTitle from "../layout/MetaData";
+import { removeItemsFromCart } from "../../actions/cartAction";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -30,7 +31,7 @@ const Payment = () => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  const { error } = useSelector((state) => state.newOrder);
+  const { error, success } = useSelector((state) => state.newOrder);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -95,6 +96,14 @@ const Payment = () => {
           };
 
           dispatch(createOrder(order));
+          console.log(success)
+          if (success) {
+            cartItems.forEach((item) => {
+              console.log(item.product);
+              dispatch(removeItemsFromCart(item.product));
+              dispatch()
+            });
+          }
           navigate("/success");
         } else {
           alert.error("There's some issue while processing payment.");
@@ -104,7 +113,7 @@ const Payment = () => {
       payBtn.current.disabled = false;
       alert.error(error.response.data.message);
     }
-  }; 
+  };
 
   useEffect(() => {
     if (error) {

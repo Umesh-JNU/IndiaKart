@@ -24,7 +24,7 @@ import {
   orderDetailsReducer,
   allOrdersReducer,
   orderReducer,
-} from "./reducers/orderReducer";
+} from "./reducers/OrderReducer";
 
 const rootReducer = combineReducers({
   products: productsReducer,

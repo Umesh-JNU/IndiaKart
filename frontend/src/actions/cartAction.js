@@ -24,6 +24,7 @@ export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
 };
 
 export const removeItemsFromCart = (id) => async (dispatch, getState) => {
+  console.log(id);
   dispatch({
     type: REMOVE_FROM_CART,
     payload: id,

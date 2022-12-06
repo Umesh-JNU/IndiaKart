@@ -53,7 +53,7 @@ const App = () => {
     getStripeApiKey();
   }, []);
 
-  window.addEventListener("contextmenu", (e) => e.preventDefault());
+  // window.addEventListener("contextmenu", (e) => e.preventDefault());
   return (
     <Router>
       <Header />
@@ -68,6 +68,7 @@ const App = () => {
           <Route exact path="/account" element={<Profile />} />
           <Route exact path="/me/update" element={<UpdateProfile />} />
           <Route exact path="/password/update" element={<UpdatePassword />} />
+          <Route exact path="/cart" element={<Cart />} />
           <Route exact path="/shipping" element={<Shipping />} />
           <Route exact path="/order/confirm" element={<ConfirmOrder />} />
           {stripeApiKey && (
