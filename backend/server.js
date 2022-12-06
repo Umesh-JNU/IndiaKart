@@ -1,6 +1,7 @@
 const app = require("./app");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
+const { prototype } = require("nodemailer/lib/ses-transport");
 
 // uncaught error
 process.on("uncaughtException", (err) => {
@@ -22,8 +23,9 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const server = app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+const port = process.env.PORT || 4000;
+const server = app.listen(prototype, () => {
+  console.log(`Server is running at http://localhost:${prototype}`);
 });
 
 // unhandled promise rejection
