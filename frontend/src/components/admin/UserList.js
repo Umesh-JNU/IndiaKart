@@ -7,8 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import useTitle from "../layout/MetaData";
 import Sidebar from "./Sidebar";
-import { clearErrors, deleteUser, getALLUsers } from "../../actions/userAction";
-import { DELETE_USERS_RESET } from "../../constants/userConstants";
+import { clearErrors, deleteUser, getALLUsers } from "../../actions/UserAction";
+import { DELETE_USERS_RESET } from "../../constants/UserConstants";
 
 const UserList = () => {
   const navigate = useNavigate();

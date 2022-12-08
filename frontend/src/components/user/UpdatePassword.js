@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./updatePassword.css";
 import Loading from "../layout/loader/Loading";
-import { clearErrors, updatePassword } from "../../actions/userAction";
+import { clearErrors, updatePassword } from "../../actions/UserAction";
+import { UPDATE_PASSWORD_RESET } from "../../constants/UserConstants";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
-import { UPDATE_PASSWORD_RESET } from "../../constants/userConstants";
 import { VpnKey, LockOpen, Lock } from "@mui/icons-material";
 import useTitle from "../layout/MetaData";
 

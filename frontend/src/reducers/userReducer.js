@@ -39,7 +39,7 @@ import {
   USERS_DETAILS_FAIL,
   USERS_DETAILS_REQUEST,
   USERS_DETAILS_SUCCESS,
-} from "../constants/userConstants";
+} from "../constants/UserConstants";
 
 const initialState = {
   user: {},

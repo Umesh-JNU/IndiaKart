@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './updateProfile.css'
 import Loading from "../layout/loader/Loading"
-import { clearErrors, loadUser, updateProfile } from '../../actions/userAction'
 import { MailOutline, Face } from "@mui/icons-material"
 import { useSelector, useDispatch } from 'react-redux'
 import { useAlert } from 'react-alert'
-import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
+import { clearErrors, loadUser, updateProfile } from '../../actions/UserAction'
+import { UPDATE_PROFILE_RESET } from '../../constants/UserConstants'
 import useTitle from '../layout/MetaData'
 
 const UpdateProfile = () => {

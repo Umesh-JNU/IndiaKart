@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./shipping.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import { saveShippingInfo } from "../../actions/cartAction";
+import { saveShippingInfo } from "../../actions/CartAction";
 import useTitle from "../layout/MetaData";
 import CheckoutSteps from "../cart/CheckoutSteps.js";
 import {

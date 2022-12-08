@@ -15,9 +15,9 @@ import axios from "axios";
 import "./payment.css";
 import { CreditCard, Event, VpnKey } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { createOrder, clearErrors } from "../../actions/orderAction";
+import { createOrder, clearErrors } from "../../actions/OrderAction";
 import useTitle from "../layout/MetaData";
-import { removeItemsFromCart } from "../../actions/cartAction";
+import { removeItemsFromCart } from "../../actions/CartAction";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));

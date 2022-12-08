@@ -8,14 +8,14 @@ import {
   clearErrors,
   deleteReviews,
   getAllReviews,
-} from "../../actions/productAction";
+} from "../../actions/ProductAction";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import useTitle from "../layout/MetaData";
 import Sidebar from "./Sidebar";
 import {
   DELETE_REVIEW_RESET,
-} from "../../constants/productConstants";
+} from "../../constants/ProductConstants";
 
 const ProductReviews = () => {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import "./home.css";
 import Product from "./ProductCard.js";
 import useTitle from "../layout/MetaData";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProduct } from "../../actions/productAction";
+import { clearErrors, getProduct } from "../../actions/ProductAction";
 import Loading from "../layout/loader/Loading";
 import { useAlert } from "react-alert";
 

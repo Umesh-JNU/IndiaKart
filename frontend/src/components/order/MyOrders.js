@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./myOrders.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, myOrders } from "../../actions/orderAction";
+import { clearErrors, myOrders } from "../../actions/OrderAction";
 import Loading from "../layout/loader/Loading";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -98,7 +98,7 @@ const MyOrders = () => {
             columns={columns}
             pageSize={10}
             disableSelectionOnClick
-            className="myOrderTable"
+            className="myOrdersTable"
             autoHeight
           />
           <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>

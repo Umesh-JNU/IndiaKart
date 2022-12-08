@@ -29,18 +29,14 @@ import UpdateUser from "./components/admin/UpdateUser";
 import ProductReviews from "./components/admin/ProductReviews";
 
 import ProtectedRoute from "./components/route/ProtectedRoute";
-
-import store from "./store";
-import axios from "axios";
-import UserOptions from "./components/layout/header/UserOptions";
-import { loadUser } from "./actions/userAction";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import { useSelector } from "react-redux";
 import NotFound from "./components/layout/notFound/NotFound";
 
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+
 const App = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.user);
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
@@ -49,7 +45,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    store.dispatch(loadUser());
     getStripeApiKey();
   }, []);
 
@@ -57,7 +52,6 @@ const App = () => {
   return (
     <Router>
       <Header />
-      {isAuthenticated && <UserOptions user={user} />}
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/product/:id" element={<ProductDetails />} />

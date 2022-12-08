@@ -8,12 +8,12 @@ import {
   clearErrors,
   getAdminProduct,
   deleteProduct,
-} from "../../actions/productAction";
+} from "../../actions/ProductAction";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import useTitle from "../layout/MetaData";
 import Sidebar from "./Sidebar";
-import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
+import { DELETE_PRODUCT_RESET } from "../../constants/ProductConstants";
 
 const ProductList = () => {
   const navigate = useNavigate();

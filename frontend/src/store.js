@@ -9,15 +9,15 @@ import {
   productReducer,
   productReviewsReducer,
   reviewReducer,
-} from "./reducers/productReducer";
+} from "./reducers/ProductReducer";
 import {
   userReducer,
   profileReducer,
   forgotPasswordReducer,
   allUsersReducer,
   userDetailsReducer,
-} from "./reducers/userReducer";
-import { cartReducer } from "./reducers/cartReducer";
+} from "./reducers/UserReducer";
+import { cartReducer } from "./reducers/CartReducer";
 import {
   newOrderReducer,
   myOrdersReducer,

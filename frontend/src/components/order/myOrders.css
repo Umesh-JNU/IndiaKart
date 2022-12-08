@@ -1,13 +1,9 @@
 .myOrdersPage {
-    margin-top: 5vmax;
     width: 100vw;
     max-width: 100%;
     padding: 0 7vmax;
     box-sizing: border-box;
     background-color: rgb(235, 235, 235);
-    position: fixed;
-    top: 0;
-    left: 0;
     height: 80vh;
     display: flex;
     flex-direction: column;
@@ -24,6 +20,7 @@
 }
 
 .myOrdersTable {
+    margin-top: 6vmax;
     background-color: white;
 }
 
