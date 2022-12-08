@@ -4,7 +4,7 @@ import {
   clearErrors,
   updateProduct,
   getProductDetails,
-} from "../../actions/productAction";
+} from "../../actions/ProductAction";
 import { useAlert } from "react-alert";
 import { Button } from "@mui/material";
 import useTitle from "../layout/MetaData";
@@ -16,7 +16,7 @@ import {
   AttachMoney,
 } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
-import { UPDATE_PRODUCT_RESET } from "../../constants/productConstants";
+import { UPDATE_PRODUCT_RESET } from "../../constants/ProductConstants";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateProduct = () => {

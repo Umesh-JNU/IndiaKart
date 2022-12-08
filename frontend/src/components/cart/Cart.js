@@ -2,7 +2,7 @@ import React from "react";
 import "./cart.css";
 import CartItemCard from "./CartItemCard.js";
 import { useSelector, useDispatch } from "react-redux";
-import { addItemsToCart, removeItemsFromCart } from "../../actions/cartAction";
+import { addItemsToCart, removeItemsFromCart } from "../../actions/CartAction";
 import { Typography } from "@mui/material";
 import { RemoveShoppingCart } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";

@@ -7,12 +7,12 @@ import useTitle from "../layout/MetaData";
 import { MailOutline, Person, VerifiedUser } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import { useNavigate, useParams } from "react-router-dom";
-import { UPDATE_USERS_RESET } from "../../constants/userConstants";
+import { UPDATE_USERS_RESET } from "../../constants/UserConstants";
 import {
   getUserDetails,
   updateUser,
   clearErrors,
-} from "../../actions/userAction";
+} from "../../actions/UserAction";
 import Loading from "../layout/loader/Loading";
 
 const UpdateUser = () => {

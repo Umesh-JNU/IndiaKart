@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Sidebar from "./Sidebar.js";
 import "./dashboard.css";
-import { getAdminProduct } from "../../actions/productAction.js";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +16,9 @@ import {
   Legend,
 } from "chart.js";
 import { Doughnut, Line } from "react-chartjs-2";
-import { getAllOrders } from "../../actions/orderAction.js";
-import { getALLUsers } from "../../actions/userAction.js";
+import { getAdminProduct } from "../../actions/ProductAction";
+import { getAllOrders } from "../../actions/OrderAction";
+import { getALLUsers } from "../../actions/UserAction";
 
 ChartJS.register(
   CategoryScale,

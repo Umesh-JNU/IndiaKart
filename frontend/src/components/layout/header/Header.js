@@ -1,71 +1,4 @@
-// import React, {useState} from "react";
-
-// // import Search from "./Search";
-// import AppBar from "@mui/material/AppBar";
-// import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
-// import IconButton from "@mui/material/IconButton";
-// import Typography from "@mui/material/Typography";
-// import Menu from "@mui/material/Menu";
-// import MenuIcon from "@mui/icons-material/Menu";
-// import Container from "@mui/material/Container";
-// import Avatar from "@mui/material/Avatar";
-//
-// import Tooltip from "@mui/material/Tooltip";
-// import MenuItem from "@mui/material/MenuItem";
-// import userLogo from "../../../images/user-icon.png";
-
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
-// function Header() {
-//
-//   const [anchorElUser, setAnchorElUser] = useState(null);
-
-//   const handleOpenNavMenu = (event) => {
-//     setAnchorElNav(event.currentTarget);
-//   };
-//   const handleOpenUserMenu = (event) => {
-//     setAnchorElUser(event.currentTarget);
-//   };
-
-//   const handleCloseNavMenu = () => {
-//     setAnchorElNav(null);
-//   };
-
-//   const handleCloseUserMenu = () => {
-//     setAnchorElUser(null);
-//   };
-
-//   return (
-//     <AppBar position="absolute">
-//       <Container maxWidth="xl">
-//         <Toolbar disableGutters>
-//           <Typography
-//             variant="h6"
-//             noWrap
-//             component="a"
-//             href="/"
-//             sx={{
-//               mr: 2,
-//               display: { xs: "none", md: "flex" },
-//               fontFamily: "monospace",
-//               fontWeight: 700,
-//               letterSpacing: ".3rem",
-//               color: "inherit",
-//               textDecoration: "none",
-//             }}
-//           >
-//             <img src={logo} alt="IndiaKart"/>
-//           </Typography>
-
-//         </Toolbar>
-//       </Container>
-//     </AppBar>
-//   );
-// }
-// export default Header;
-
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -74,25 +7,26 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import {
   ShoppingCart,
   AccountCircle,
-  Favorite,
   Search as SearchIcon,
   MoreVert,
-  Menu as MenuIcon,
+  ListAlt,
+  Home,
+  ExitToApp,
+  Checkroom,
 } from "@mui/icons-material";
 import logo from "../../../images/logo.jpg";
-
-const pages = [
-  { tag: "Products", url: "/products" },
-  { tag: "Pricing", url: "/price" },
-  { tag: "Blog", url: "/blog" },
-];
+import UserOptions from "./UserOptions";
+import { useSelector, useDispatch } from "react-redux";
+import { useAlert } from "react-alert";
+import store from "../../../store";
+import { loadUser, logout } from "../../../actions/UserAction";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -124,7 +58,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -136,75 +69,42 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const alert = useAlert();
 
-  const [keyword, setKeyword] = React.useState("");
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const [value, setValue] = useState(0);
+  const [keyword, setKeyword] = useState("");
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
   const searchSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(keyword);
     if (keyword.trim()) {
       navigate(`/products/${keyword}`);
     } else {
       navigate(`/products`);
     }
   };
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/login">Login</Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/profile">Profile</Link>
-      </MenuItem>
-    </Menu>
-  );
 
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
+  const mobileMenu = [
+    { url: "/", icon: <Home />, text: "Home" },
+    { url: "/products", icon: <Checkroom />, text: "Products" },
+    { url: "/orders", icon: <ListAlt />, text: "Bag" },
+    { url: "/cart", icon: <ShoppingCart />, text: "Orders" },
+  ];
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -222,112 +122,90 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <Favorite />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <Link to="/cart">
-              <ShoppingCart />
-            </Link>
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      {mobileMenu.map((item, i) => (
+        <Link to={item.url}>
+          <MenuItem>
+            <IconButton size="large" color="inherit">
+              {item.icon}
+            </IconButton>
+            <p>{item.text}</p>
+          </MenuItem>
+        </Link>
+      ))}
+      {isAuthenticated ? (
+        <MenuItem onClick={logoutUser}>
+          <IconButton size="large" color="inherit">
+            <ExitToApp />
+          </IconButton>
+          <p>Logout</p>
+        </MenuItem>
+      ) : (
+        <Link to="/login">
+          <MenuItem>
+            <IconButton size="large" color="inherit">
+              <AccountCircle />
+            </IconButton>
+            <p>Login</p>
+          </MenuItem>
+        </Link>
+      )}
     </Menu>
   );
 
+  const bottonNavigationActionList = [
+    { label: "Home", icon: <Home />, func: toHome },
+    { label: "Products", icon: <Checkroom />, func: toProduct },
+    { label: "Orders", icon: <ListAlt />, func: toOrder },
+    { label: "Bag", icon: <ShoppingCart />, func: toCart },
+  ];
+
+  if (!isAuthenticated) {
+    bottonNavigationActionList.push({
+      label: "Login",
+      icon: <AccountCircle />,
+      func: toLogin,
+    });
+  }
+  function toHome() {
+    navigate("/");
+  }
+  function toProduct() {
+    navigate("/products");
+  }
+  function toOrder() {
+    navigate("/orders");
+  }
+  function toCart() {
+    navigate("/cart");
+  }
+  function toLogin() {
+    navigate("/login");
+  }
+  function logoutUser() {
+    dispatch(logout());
+    alert.success("Logout Successfully");
+  }
   return (
-    <Box sx={{ flexGrow: 1, position: { xs: "absolute" }, width: "100%" }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        position: { xs: "sticky" },
+        width: "100%",
+        top: 0,
+        zIndex: 1,
+      }}
+    >
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page, i) => (
-                <MenuItem key={i} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link to={page.url}>{page.tag}</Link>
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page, i) => (
-              <Button
-                key={i}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                <Link to={page.url}>{page.tag}</Link>
-              </Button>
-            ))}
-          </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <img src={logo} alt="IndiaKart" />
+            <Link to="/">
+              <img src={logo} alt="IndiaKart" />
+            </Link>
           </Typography>
           <Search onSubmit={searchSubmitHandler}>
             <SearchIconWrapper>
@@ -341,37 +219,24 @@ export default function Header() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
+            <BottomNavigation
+              sx={{ backgroundColor: "inherit" }}
+              showLabels
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
             >
-              <Badge badgeContent={4} color="error">
-                <Favorite />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <Link to="/cart">
-                  <ShoppingCart />
-                </Link>
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+              {bottonNavigationActionList.map((item, i) => (
+                <BottomNavigationAction
+                  sx={{ minWidth: "50px", color: "white" }}
+                  label={item.label}
+                  icon={item.icon}
+                  onClick={item.func}
+                />
+              ))}
+            </BottomNavigation>
+            {isAuthenticated && <UserOptions user={user} />}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -388,7 +253,12 @@ export default function Header() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }
+
+// {/* <Tooltip title="Login/Register">
+//   <Link className="loginHover" to="/login">
+//     <AccountCircle />
+//   </Link>
+// </Tooltip> */}

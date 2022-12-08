@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./productDetails.css";
 import { useSelector, useDispatch } from "react-redux";
+import { NEW_REVIEW_RESET } from "../../constants/ProductConstants";
 import {
   clearErrors,
   getProductDetails,
   newReview,
-} from "../../actions/productAction";
+} from "../../actions/ProductAction";
+import { addItemsToCart } from "../../actions/CartAction";
 import { useParams } from "react-router-dom";
 import ReviewCard from "./ReviewCard.js";
 import Loading from "../layout/loader/Loading";
 import { useAlert } from "react-alert";
-import { addItemsToCart } from "../../actions/cartAction";
 import {
   Dialog,
   DialogActions,
@@ -20,7 +21,6 @@ import {
   Button,
   Rating,
 } from "@mui/material";
-import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import useTitle from "../layout/MetaData";
 
 const ProductDetails = () => {

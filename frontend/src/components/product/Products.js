@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./products.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProduct } from "../../actions/productAction";
+import { clearErrors, getProduct } from "../../actions/ProductAction";
 import Loading from "../layout/loader/Loading";
 import ProductCard from "../home/ProductCard";
 import { useParams } from "react-router-dom";

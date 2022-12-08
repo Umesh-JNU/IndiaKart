@@ -8,12 +8,12 @@ import {
   getOrderDetails,
   clearErrors,
   updateOrder,
-} from "../../actions/orderAction";
+} from "../../actions/OrderAction";
 import { useAlert } from "react-alert";
 import Loading from "../layout/loader/Loading";
 import { AccountTree } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { UPDATE_ORDER_RESET } from "../../constants/orderConstants";
+import { UPDATE_ORDER_RESET } from "../../constants/OrderConstants";
 import "./processOrder.css";
 
 const ProcessOrder = () => {

@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import { logout } from "../../../actions/userAction";
+import { logout } from "../../../actions/UserAction";
 import "./header.css";
 
 const UserOptions = ({ user }) => {
@@ -81,15 +81,16 @@ const UserOptions = ({ user }) => {
           />
         }
       >
-        {options.map((item, i) => (
-          <SpeedDialAction
-            icon={item.icon}
-            tooltipTitle={item.name}
-            onClick={item.func}
-            tooltipOpen={window.innerWidth <= 600 ? true : false}
-            key={i}
-          />
-        ))}
+        {options &&
+          options.map((item, i) => (
+            <SpeedDialAction
+              icon={item.icon}
+              tooltipTitle={item.name}
+              onClick={item.func}
+              tooltipOpen={window.innerWidth <= 600 ? true : false}
+              key={i}
+            />
+          ))}
       </SpeedDial>{" "}
     </>
   );

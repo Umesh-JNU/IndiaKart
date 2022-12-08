@@ -1,11 +1,18 @@
-.speedDial {
-    position: fixed;
-    right: 3vmax;
-    top: 3vmax;
-}
-
 .speedDialIcon {
     width: 56px;
     height: 56px;
     border-radius: 100%;
+}
+
+#SpeedDialtooltipexample-actions {
+    position: absolute;
+    top: 58px;
+}
+
+.Mui-selected {
+    color: tomato;
+    font-weight: 600;
+}
+.Mui-selected > svg {
+    color: tomato;
 }

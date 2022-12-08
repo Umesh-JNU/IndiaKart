@@ -8,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import useTitle from "../layout/MetaData";
 import Sidebar from "./Sidebar";
-import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
-import { deleteOrder, getAllOrders, clearErrors } from "../../actions/orderAction";
+import { DELETE_ORDER_RESET } from "../../constants/OrderConstants";
+import { deleteOrder, getAllOrders, clearErrors } from "../../actions/OrderAction";
 
 const OrderList = () => {
   const navigate = useNavigate();

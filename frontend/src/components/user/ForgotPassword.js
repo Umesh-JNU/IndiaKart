@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./forgotPassword.css";
 import Loading from "../layout/loader/Loading";
-import { clearErrors, forgotPassword } from "../../actions/userAction";
+import { clearErrors, forgotPassword } from "../../actions/UserAction";
 import { MailOutline } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";

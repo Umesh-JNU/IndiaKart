@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./loginSignUp.css";
 import userLogo from "../../images/user-icon.png";
 import Loading from "../layout/loader/Loading";
-import { clearErrors, login, register } from "../../actions/userAction";
+import { clearErrors, login, register } from "../../actions/UserAction";
 import { MailOutline, LockOpen, Face } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";

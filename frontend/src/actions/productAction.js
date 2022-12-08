@@ -28,7 +28,7 @@ import {
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
-} from "../constants/productConstants";
+} from "../constants/ProductConstants";
 
 export const getProduct =
   (keyword = "", curPage = 1, price = [0, 40000], category, ratings = 0) =>

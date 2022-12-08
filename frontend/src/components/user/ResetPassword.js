@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./resetPassword.css";
 import Loading from "../layout/loader/Loading";
-import { clearErrors, resetPassword } from "../../actions/userAction";
+import { clearErrors, resetPassword } from "../../actions/UserAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
 import { LockOpen, Lock } from "@mui/icons-material";

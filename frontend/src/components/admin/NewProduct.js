@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./newProduct.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, createProduct } from "../../actions/productAction";
 import { useAlert } from "react-alert";
 import { Button } from "@mui/material";
 import useTitle from "../layout/MetaData";
@@ -13,7 +12,8 @@ import {
   AttachMoney,
 } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
-import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
+import { clearErrors, createProduct } from "../../actions/ProductAction";
+import { NEW_PRODUCT_RESET } from "../../constants/ProductConstants";
 import { useNavigate } from "react-router-dom";
 
 const NewProduct = () => {
