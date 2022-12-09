@@ -30,6 +30,7 @@ const Home = () => {
       ) : (
         <>
           <div className="banner">
+            <div className="banner-container">
             <p>Welcome to IndiaKart</p>
             <h1>Get exclusive product only on IndiaKart</h1>
 
@@ -38,6 +39,7 @@ const Home = () => {
                 Scroll <Mouse />
               </button>
             </a>
+            </div>
           </div>
 
           <h2 className="homeHeading">Featured Products</h2>
