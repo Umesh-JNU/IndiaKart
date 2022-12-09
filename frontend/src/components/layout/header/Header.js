@@ -12,6 +12,8 @@ import Menu from "@mui/material/Menu";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import {
+  Dashboard,
+  Person,
   ShoppingCart,
   AccountCircle,
   Search as SearchIcon,
@@ -102,9 +104,39 @@ export default function Header() {
   const mobileMenu = [
     { url: "/", icon: <Home />, text: "Home" },
     { url: "/products", icon: <Checkroom />, text: "Products" },
-    { url: "/orders", icon: <ListAlt />, text: "Bag" },
-    { url: "/cart", icon: <ShoppingCart />, text: "Orders" },
+    { url: "/orders", icon: <ListAlt />, text: "Orders" },
+    { url: "/cart", icon: <ShoppingCart />, text: "Bag" },
   ];
+
+  const bottonNavigationActionList = [
+    { label: "Home", icon: <Home />, func: toHome },
+    { label: "Products", icon: <Checkroom />, func: toProduct },
+    { label: "Orders", icon: <ListAlt />, func: toOrder },
+    { label: "Bag", icon: <ShoppingCart />, func: toCart },
+  ];
+
+  if (isAuthenticated) {
+    mobileMenu.splice(1, 0, {
+      url: "/account",
+      icon: <Person />,
+      text: "Profile",
+    });
+
+    if (user.role === "admin") {
+      mobileMenu.splice(2, 0, {
+        url: "/dashboard",
+        icon: <Dashboard />,
+        text: "Dashboard",
+      });
+    }
+  } else {
+    bottonNavigationActionList.push({
+      label: "Login",
+      icon: <AccountCircle />,
+      func: toLogin,
+    });
+  }
+
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -152,20 +184,6 @@ export default function Header() {
     </Menu>
   );
 
-  const bottonNavigationActionList = [
-    { label: "Home", icon: <Home />, func: toHome },
-    { label: "Products", icon: <Checkroom />, func: toProduct },
-    { label: "Orders", icon: <ListAlt />, func: toOrder },
-    { label: "Bag", icon: <ShoppingCart />, func: toCart },
-  ];
-
-  if (!isAuthenticated) {
-    bottonNavigationActionList.push({
-      label: "Login",
-      icon: <AccountCircle />,
-      func: toLogin,
-    });
-  }
   function toHome() {
     navigate("/");
   }

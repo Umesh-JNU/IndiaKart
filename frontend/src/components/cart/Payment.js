@@ -16,8 +16,8 @@ import "./payment.css";
 import { CreditCard, Event, VpnKey } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { createOrder, clearErrors } from "../../actions/OrderAction";
-import useTitle from "../layout/MetaData";
 import { removeItemsFromCart } from "../../actions/CartAction";
+import useTitle from "../layout/MetaData";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -31,7 +31,7 @@ const Payment = () => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  const { error, success } = useSelector((state) => state.newOrder);
+  const { error } = useSelector((state) => state.newOrder);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -96,14 +96,12 @@ const Payment = () => {
           };
 
           dispatch(createOrder(order));
-          console.log(success)
-          if (success) {
-            cartItems.forEach((item) => {
-              console.log(item.product);
-              dispatch(removeItemsFromCart(item.product));
-              dispatch()
-            });
-          }
+
+          cartItems.forEach((item) => {
+            dispatch(removeItemsFromCart(item.product));
+          });
+          localStorage.clear();
+
           navigate("/success");
         } else {
           alert.error("There's some issue while processing payment.");
