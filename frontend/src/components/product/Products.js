@@ -5,19 +5,27 @@ import { clearErrors, getProduct } from "../../actions/ProductAction";
 import Loading from "../layout/loader/Loading";
 import ProductCard from "../home/ProductCard";
 import { useParams } from "react-router-dom";
-import { Pagination, Slider, Typography } from "@mui/material";
+import {
+  Pagination,
+  Slider,
+  Typography,
+  Rating,
+  List,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import { useAlert } from "react-alert";
 import useTitle from "../layout/MetaData";
 
 const categories = [
-  "laptop",
-  "footwear",
-  "bottom",
-  "tops",
-  "attire",
-  "camera",
-  "mobile",
-  "smartphones",
+  "Laptop",
+  "Footwear",
+  "Jeans",
+  "Jacket",
+  "Winter Wear",
+  "Electronics",
+  "Mobile",
+  "Shirt",
 ];
 
 const Products = () => {
@@ -38,13 +46,7 @@ const Products = () => {
   const [price, setPrice] = useState([0, 40000]);
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState(0);
-
-  const setCurPageNo = (e, val) => {
-    setCurPage(val);
-  };
-  const priceHandler = (e, newPrice) => {
-    setPrice(newPrice);
-  };
+  const [selectedIndex, setSelectedIndex] = useState();
 
   useEffect(() => {
     if (error) {
@@ -53,11 +55,13 @@ const Products = () => {
     }
     dispatch(getProduct(keyword, curPage, price, category, ratings));
   }, [dispatch, error, alert, keyword, curPage, price, category, ratings]);
-  
+
   const count = filteredProductsCount;
   const noPages =
     parseInt(productsCount / resultPerPage) +
     (productsCount % resultPerPage === 0 ? 0 : 1);
+
+  const valuetext = (value) => `₹${value}`;
 
   useTitle("IndiaKart | Products");
   return (
@@ -65,50 +69,93 @@ const Products = () => {
       {loading ? (
         <Loading />
       ) : (
-        <>
-          <h2 className="productsHeading">Products</h2>
-          <div className="products">
-            {products &&
-              products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
+        <div className="product-container">
+          <div className="i1">
+            <div className="i11">
+              <h1 className="text-center text-medium px-4 py-2">Filter</h1>
+            </div>
+            <div className="i12 p-4">
+              <div className="p-2">
+                <Typography>Price</Typography>
+                <Slider
+                  value={price}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  getAriaValueText={valuetext}
+                  step={10000}
+                  marks
+                  min={0}
+                  max={40000}
+                  onChange={(e, newPrice) => setPrice(newPrice)}
+                />
+              </div>
+              <div className="p-2">
+                <Typography>Category</Typography>
+                <List component="nav">
+                  {categories.map((category, i) => (
+                    <ListItemButton
+                      sx={{padding: "0 5px"}}
+                      key={i}
+                      selected={selectedIndex === i}
+                      onClick={() => {
+                        setCategory(category);
+                        setSelectedIndex(i);
+                      }}
+                    >
+                      <ListItemText
+                        primary={category}
+                        primaryTypographyProps={{
+                          fontSize: 12,
+                          fontWeight: "medium",
+                        }}
+                      />
+                    </ListItemButton>
+                  ))}
+                </List>
+              </div>
+              <div className="p-2">
+                <Typography sx={{padding: "0 0 2px 0"}}>Ratings Above</Typography>
+                <Rating
+                  onChange={(e, newRating) =>
+                    setRatings(newRating === null ? 0 : newRating)
+                  }
+                  value={ratings}
+                  size="large"
+                  precision={0.5}
+                />
+              </div>
+            </div>
           </div>
+          <div className="i2">
+            <div className="i21">
+              <h1 className="text-center text-large px-4 py-2 inline-block">
+                <span className="border-b-2 border-[#808080]">Products</span>
+              </h1>
+            </div>
+            <div className="i22">
+              <div className="products">
+                {products &&
+                  products.map((product) => (
+                    <ProductCard key={product._id} product={product} />
+                  ))}
+              </div>
 
-          <div className='filterBox'>
-                    <Typography>Price</Typography>
-                    <Slider value={price} valueLabelDisplay="auto"
-                    aria-labelledby='range-slider'
-                    min={0}
-                    max={40000}
-                    onChange={priceHandler} />
-
-                    <Typography>Category</Typography>
-                    <ul className='categoryBox'>
-                        {categories.map((category) => (
-                            <li className='category-link' key={category} onClick={() => setCategory(category)}>{category}</li>
-                        ))}
-                    </ul>
-
-                    <fieldset>
-                        <Typography component="legend">Ratings Above</Typography>
-                        <Slider value={ratings} onChange={(e, newRating) => setRatings(newRating)} aria-labelledby="continuous-slider" min={0} max={5} valueLabelDisplay="auto" />
-                    </fieldset>
-                </div>
-
-          {resultPerPage < count && (
-            <Pagination
-              count={noPages}
-              page={curPage}
-              variant="outlined"
-              color="primary"
-              siblingCount={0}
-              boundaryCount={2}
-              showFirstButton
-              showLastButton
-              onChange={setCurPageNo}
-            />
-          )}
-        </>
+              {resultPerPage < count && (
+                <Pagination
+                  count={noPages}
+                  page={curPage}
+                  variant="outlined"
+                  color="primary"
+                  siblingCount={0}
+                  boundaryCount={2}
+                  showFirstButton
+                  showLastButton
+                  onChange={(e, val) => setCurPage(val)}
+                />
+              )}
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

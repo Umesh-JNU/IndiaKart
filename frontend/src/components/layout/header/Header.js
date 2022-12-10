@@ -155,7 +155,7 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       {mobileMenu.map((item, i) => (
-        <Link to={item.url}>
+        <Link to={item.url} key={i}>
           <MenuItem>
             <IconButton size="large" color="inherit">
               {item.icon}
@@ -251,6 +251,7 @@ export default function Header() {
                   label={item.label}
                   icon={item.icon}
                   onClick={item.func}
+                  key={i}
                 />
               ))}
             </BottomNavigation>
