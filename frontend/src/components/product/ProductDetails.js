@@ -20,8 +20,20 @@ import {
   DialogTitle,
   Button,
   Rating,
+  Stack,
+  TextField,
 } from "@mui/material";
 import useTitle from "../layout/MetaData";
+
+const CustomButton = ({ func, text }) => (
+  <Button
+    variant="contained"
+    sx={{ padding: "0 6px", minWidth: "30px" }}
+    onClick={func}
+  >
+    {text}
+  </Button>
+);
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -136,32 +148,46 @@ const ProductDetails = () => {
               <div className="detailsBlock-3">
                 <h1>{`₹${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
-                  <div className="detailsBlock-3-1-1">
-                    <button onClick={decreaseQuantity}>-</button>
-                    <input readOnly type="number" value={quantity} />
-                    <button onClick={increaseQuantity}>+</button>
-                  </div>
-                  <button
+                  <Stack spacing={1} direction="row">
+                    <CustomButton func={decreaseQuantity} text={"-"} />
+                    <TextField
+                      id="outlined-basic"
+                      variant="outlined"
+                      disabled
+                      value={quantity}
+                    />
+                    <CustomButton func={increaseQuantity} text={"+"} />
+                  </Stack>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{ marginTop: "15px", borderRadius: "20px" }}
                     disabled={product.stock < 1 ? true : false}
                     onClick={addToCartHandler}
                   >
                     Add to Cart
-                  </button>
+                  </Button>
                 </div>
                 <p>
-                  Status:
+                  Status :
                   <b className={product.stock < 1 ? "redColor" : "greenColor"}>
-                    {product.stock < 1 ? "Out of Stock" : "In Stock"}
+                    {product.stock < 1 ? " Out of Stock" : " In Stock"}
                   </b>
                 </p>
               </div>
 
               <div className="detailsBlock-4">
-                Description : <p>{product.description}</p>
+                <strong>Description :</strong><p>{product.description}</p>
               </div>
-              <button className="submitReview" onClick={submitReviewToggle}>
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ marginTop: "15px", borderRadius: "20px" }}
+                disabled={product.stock < 1 ? true : false}
+                onClick={submitReviewToggle}
+              >
                 Submit Review
-              </button>
+              </Button>
             </div>
           </div>
 

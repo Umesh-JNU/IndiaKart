@@ -47,6 +47,13 @@
     grid-auto-flow: row;
 }
 
+.i22 {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
 .productsHeading {
     margin: 2vmax auto;
     width: 15vm;
@@ -60,18 +67,12 @@
 }
 
 .products {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     padding: 0 5vmax;
-    justify-content: center;
 }
-
-/* .filterBox {
-    width: 10vmax;
-    position: absolute;
-    top: 10vmax;
-    left: 4vmax;
-} */
 
 .categoryBox {
     padding: 0%;
@@ -108,4 +109,20 @@
     .category-link {
         font: 400 1.8vmax "Roboto";
     }
+}
+
+@media screen and (max-width: 750px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+}
+
+.css-12of6l-MuiButtonBase-root-MuiListItemButton-root:hover {
+    background: none !important;
+    border-bottom: solid 2px rgb(68, 68, 241);
+}
+.css-12of6l-MuiButtonBase-root-MuiListItemButton-root.Mui-selected {
+    background: none !important;
+    border-bottom: solid 2px blue;
 }
