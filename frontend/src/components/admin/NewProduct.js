@@ -32,14 +32,14 @@ const NewProduct = () => {
   const [imagesPreview, setImagesPreview] = useState([]);
 
   const categories = [
-    "laptop",
-    "footwear",
-    "bottom",
-    "tops",
-    "attire",
-    "camera",
-    "mobile",
-    "smartphones",
+    "Laptop",
+    "Footwear",
+    "Jeans",
+    "Jacket",
+    "Winter Wear",
+    "Electronics",
+    "Mobile",
+    "Shirt",
   ];
 
   const createProductSubmitHandler = (e) => {
@@ -89,8 +89,8 @@ const NewProduct = () => {
       dispatch({ type: NEW_PRODUCT_RESET });
     }
   }, [dispatch, alert, error, navigate, success]);
-  
-  useTitle("Create Product"); 
+
+  useTitle("Create Product");
   return (
     <>
       <div className="dashboard">
