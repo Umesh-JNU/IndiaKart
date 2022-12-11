@@ -67,22 +67,12 @@
 }
 
 .products {
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: center; */
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     padding: 0 5vmax;
 }
-
-/* .filterBox {
-    width: 10vmax;
-    position: absolute;
-    top: 10vmax;
-    left: 4vmax;
-} */
 
 .categoryBox {
     padding: 0%;
@@ -126,4 +116,13 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 1fr);
     }
+}
+
+.css-12of6l-MuiButtonBase-root-MuiListItemButton-root:hover {
+    background: none !important;
+    border-bottom: solid 2px rgb(68, 68, 241);
+}
+.css-12of6l-MuiButtonBase-root-MuiListItemButton-root.Mui-selected {
+    background: none !important;
+    border-bottom: solid 2px blue;
 }
